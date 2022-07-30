@@ -1,0 +1,29 @@
+server:
+  tomcat:
+    max-threads: 200
+  port: 8080
+spring:
+  thymeleaf:
+    mode: HTML
+    cache: false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:6306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    type: com.zaxxer.hikari.HikariDataSource
+    username: root
+    password: abc123
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  http:
+    multipart:
+      max-file-size: 10MB
+
+logging:
+  level:
+    root: debug
+    com.ysp: info
+  file: log/blog-pro.log
+
+comment.avatar: /images/avatar.png

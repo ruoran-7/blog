@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我</title>
+</head>
+<body>
+
+<!--导航-->
+<nav th:replace="_fragments :: menu(5)"></nav>
+<div style="margin-top: 70px"></div>
+<!--中间内容-->
+<div class="m-container m-padded-tb-big animated fadeIn">
+    <div class="ui container">
+
+        <div class="ui stackable grid">
+            <div class="five wide column">
+                <div class="ui top attached segment">
+                    <div class="ui header">个人简介</div>
+                </div>
+                <div class="ui attached segment">
+                    <p class="m-text">一位正在学习的大三学子</p>
+                    <p class="m-text">才疏学浅，请多多指教</p>
+                    <img th:src="@{/images/ao.jpeg}" alt="" class="ui rounded image">
+                </div>
+                <div class="ui bottom attached segment">
+                    <a href="https://github.com/ruoran-7" target="_blank" class="ui circular icon button"><i
+                            class="high github icon"></i></a>
+                    <a href="https://gitee.com/ruoran7" target="_blank" class="ui circular icon button"><i
+                            class="high git icon"></i></a>
+                    <a href="https://weibo.com/u/6352346180" target="_blank" class="ui wechat circular icon button"><i
+                            class="high weibo icon"></i></a>
+                    <a href="tencent://message/?uin=1102352485&Site=&Menu-=yes" target="_blank"
+                       class="ui qq circular icon button"><i class="high qq icon"></i></a>
+                </div>
+
+            </div>
+            <div class="eleven wide column">
+                <div class="ui segment">
+                    <img th:src="@{/images/aboutme.jpg}" alt="" class="ui rounded image">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<br>
+<br>
+<!--底部footer-->
+<footer th:replace="_fragments :: footer"></footer>
+<th:block th:replace="_fragments :: script"/>
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.wechat').popup({
+        popup: $('.wechat-qr'),
+        position: 'bottom center'
+    });
+
+</script>
+</body>
+</html>
