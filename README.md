@@ -34,7 +34,7 @@ blog
 
 **前端：** JavaScript + JQuery + Themeleaf +  semantic-ui
 
-**后端：** SpringBoot + docker + Spring Data JPA + MySQL
+**后端：** SpringBoot + docker + Spring Data JPA + MySQL + Redis
 
 **其他：** 编辑器使用editor.md
 
