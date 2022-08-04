@@ -35,4 +35,6 @@ public interface BlogService {
     Blog updateBlog(Long id,Blog blog);
 
     void deleteBlog(Long id);
+
+    void configureTasks();
 }

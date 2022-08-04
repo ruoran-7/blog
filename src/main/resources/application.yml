@@ -19,11 +19,22 @@ spring:
   http:
     multipart:
       max-file-size: 10MB
+  redis:
+    database: 0
+    host: 192.168.242.129
+    port: 6379
+    pool:
+      min-idle: 8
+      max-idle: 50
+      max-active: 200
+    timeout: 0
 
 logging:
   level:
-    root: debug
+    root: info
     com.ysp: info
   file: log/blog-pro.log
+
+
 
 comment.avatar: /images/avatar.png

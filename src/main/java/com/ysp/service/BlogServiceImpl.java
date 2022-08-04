@@ -6,6 +6,7 @@ import com.ysp.bean.Blog;
 import com.ysp.bean.Type;
 import com.ysp.util.MarkdownUtils;
 import com.ysp.util.MyBeanUtils;
+import com.ysp.util.RedisUtils;
 import com.ysp.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +26,8 @@ import java.util.*;
 @Service
 public class BlogServiceImpl implements BlogService {
 
-
+    @Autowired
+    private RedisUtils redisUtils;
     @Autowired
     private BlogRepository blogRepository;
 
@@ -147,5 +150,23 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void deleteBlog(Long id) {
         blogRepository.delete(id);
+    }
+
+    @Override
+    //定时30s进行持久化操作
+    @Scheduled(cron = "30 * * * * ?")
+    public void configureTasks(){
+        List<Blog> blogs = blogRepository.findAll();
+        if (null != blogs){
+            for (Blog blog:blogs){
+                int requestDataCount = new Long(redisUtils.sGetSetSize("requestData:"+blog.getId().intValue())).intValue();
+                Integer views = blog.getViews();
+                blog.setViews(requestDataCount + views);
+                blogRepository.save(blog);
+                redisUtils.del("requestData:"+blog.getId().intValue());
+                redisUtils.set("nowIpCount:"+blog.getId(),blog.getViews());
+            }
+        }
+
     }
 }

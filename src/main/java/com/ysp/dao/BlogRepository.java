@@ -37,8 +37,12 @@ public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificat
     @Query("select b from Blog b where  b.published = true")
     Page<Blog> findAll(Pageable pageable);
 
+    @Override
     @Query("select count(b) from Blog b where  b.published = true")
     long count();
 
+    @Override
+    @Query("select b from Blog b")
+    List<Blog> findAll();
 
 }
